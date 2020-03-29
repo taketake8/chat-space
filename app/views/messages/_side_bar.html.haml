@@ -1,0 +1,18 @@
+.chat_side
+  .header
+    .header__box
+      %p.header__box__username
+        名前
+      %ul.header__box__menu
+        %li.header__box__group
+          = link_to "#" do
+            = icon('fas', 'cog',class: 'cog')
+        %li.header__box__edit
+          = link_to "#" do
+            = icon('fas', 'edit')
+        
+  .main
+    = render "main_side_bar"
+    = render "main_side_bar"
+    = render "main_side_bar"
+  
