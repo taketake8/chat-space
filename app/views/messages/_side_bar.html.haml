@@ -2,13 +2,13 @@
   .header
     .header__box
       %p.header__box__username
-        名前
+        =current_user.name
       %ul.header__box__menu
         %li.header__box__group
           = link_to "#" do
             = icon('fas', 'cog',class: 'cog')
         %li.header__box__edit
-          = link_to "#" do
+          = link_to edit_user_path(current_user) do
             = icon('fas', 'edit')
         
   .main
