@@ -15,11 +15,9 @@
           Edit
   
   .messages_box
-      = render "messages_box"
     = render @messages
       
   .form
-          = icon('fas','image')
     = form_for [@group, @message] do |f|
       = f.text_field :content, class: 'form__message', placeholder: 'type a message'
       .form__mask
