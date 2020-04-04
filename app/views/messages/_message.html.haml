@@ -3,7 +3,7 @@
     %p.messages_box__message_box__info__username
       = message.user.name
     %p.messages_box__message_box__info__create_at
-      = message.created_at.strftime("%Y年%m月%d日 %H時%M分")
+      = message.created_at.to_s
   .messages_box__message_box__message_text
     - if message.content.present?
       %p.lower-message__content
