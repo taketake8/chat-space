@@ -2,7 +2,7 @@ $(function(){
   function buildHTML(message) {
     if (message.image) {
       var html =
-       `<div class="messages_box__message_box">
+        `<div class="messages_box__message_box" data-message-id=${message.id}>
           <div class="messages_box__message_box__info">
             <p class="messages_box__message_box__info__username">
               ${message.user_name}
@@ -21,7 +21,7 @@ $(function(){
       return html;  
     } else {
       var html = 
-        `<div class="messages_box__message_box">
+        `<div class="messages_box__message_box" data-message-id=${message.id}>
           <div class="messages_box__message_box__info">
             <p class="messages_box__message_box__info__username">
               ${message.user_name}
@@ -63,6 +63,31 @@ $(function(){
       alert("メッセージ送信に失敗しました");
     });
   });
+  var reloadMessages = function () {
+    var last_message_id = $('.messages_box__message_box:last').data("message-id");
+    $.ajax({
+      url: "api/messages",
+      type: 'get',
+      dataType: 'json',
+      data: { id: last_message_id }
+    })
+    .done(function (messages) {
+      if (messages.length !== 0) {
+        var insertHTML = '';
+        $.each(messages, function (i, message) {
+          insertHTML += buildHTML(message)
+        });
+        $('.messages_box').append(insertHTML);
+        $('.messages_box').animate({ scrollTop: $('.messages_box')[0].scrollHeight });
+      }  
+    })
+    .fail(function () {
+      alert('error');
+    });
+  };
+  if (document.location.href.match(/\/groups\/\d+\/messages/)) {
+    setInterval(reloadMessages, 7000);
+  }
 });
 
 
